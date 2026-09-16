@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n = 3;
+    float x = 2.5f;
+    float a[100], b[100];
+
+    cout << "Enter the total number of data points: ";
+    cin >> n;
+
+    if (n <= 0 || n > 100) {
+        cout << "Invalid number of data points." << endl;
+        return 1;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << "Enter x[" << i << "]: ";
+        cin >> a[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << "Enter y[" << i << "]: ";
+        cin >> b[i];
+    }
+
+    cout << "Enter the x value to interpolate: ";
+    cin >> x;
+
+    float y = 0;
+
+    for (int i = 0; i < n; i++) {
+        float nr = 1;
+        float dr = 1;
+
+        for (int j = 0; j < n; j++) {
+            if (j != i) {
+                nr *= x - a[j];
+                dr *= a[i] - a[j];
+            }
+        }
+
+        y += (nr / dr) * b[i];
+    }
+
+    cout << "When x = " << x << ", the value of y is = " << y << endl;
+
+    return 0;
+
+}{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": []
+}

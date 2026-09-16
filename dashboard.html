@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIVE Dashboard — TrinetraAI Node TN-001</title>
+<meta name="description" content="TrinetraAI live security dashboard: multi-sensor threat correlation, threat score, offline mode and alert simulation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/trinetraai.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z' fill='%232ff2a4'/%3E%3Ccircle cx='12' cy='10' r='2.6' fill='%23041512'/%3E%3C/svg%3E">
+</head>
+<body class="dash-body">
+
+<!-- offline banner -->
+<div class="offline-banner">&#9888; OFFLINE MODE ACTIVE &middot; local monitoring only</div>
+
+<!-- ================= TOP BAR ================= -->
+<header class="dash-bar">
+  <div class="wrap dash-bar-inner">
+    <a class="brand" href="index.html">
+      <span class="logo">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z" fill="rgba(4,21,18,0.9)"/>
+          <circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+      </span>
+      <span class="logo-text">TrinetraAI<span class="sub">Field Console</span></span>
+    </a>
+
+    <div class="meta">
+      <span class="pill pill-cyan" id="nodePill" style="color:var(--cyan);border-color:rgba(70,201,248,.4);background:var(--cyan-soft);"><span class="dot"></span>NODE TN-001</span>
+      <span class="pill pill-green" id="statusPill"><span class="dot"></span>ONLINE</span>
+      <span class="clock" id="dashClock">00:00:00</span>
+    </div>
+
+    <a class="btn btn-ghost" href="index.html" style="padding:9px 14px;">&larr; Landing</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= HEADING ================= -->
+  <div class="dash-head">
+    <div>
+      <div class="crumb">LiveSensorNet / Fleet / TN-001 / Console</div>
+      <h1>Live Security Dashboard&nbsp;<span class="demo-ribbon">Demo Prototype</span></h1>
+    </div>
+    <div class="demo-ribbon" id="simRibbon" title="Click to start / stop the automated demo" style="border-color:rgba(255,194,75,.4);color:#ffc24b;">&#9654; SIMULATION MODE</div>
+  </div>
+
+  <!-- ================= SYSTEM STATUS ================= -->
+  <div class="section-head" style="margin:0 0 16px;">
+    <span class="eyebrow cyan">System Status</span>
+  </div>
+  <div class="status-grid">
+    <div class="status-cell cyan">
+      <div class="k">Node ID</div>
+      <div class="v" id="nodePill2">TN-001</div>
+    </div>
+    <div class="status-cell green" id="cellStatus">
+      <div class="k"><span>Operational Status</span><span id="statusPill2">ONLINE</span></div>
+      <div class="v" id="dashStatus">ONLINE</div>
+    </div>
+    <div class="status-cell green" id="cellPower">
+      <div class="k">Power</div>
+      <div class="v small-v" id="dashPower">87%</div>
+      <div class="power-bar"><i id="powerFill" style="width:87%;"></i></div>
+    </div>
+    <div class="status-cell cyan" id="cellConn">
+      <div class="k">Connectivity</div>
+      <div class="v" id="dashConn">Connected</div>
+    </div>
+    <div class="status-cell" id="cellSync">
+      <div class="k">Last Sync</div>
+      <div class="v small-v" id="dashLastSync">—</div>
+      <div style="margin-top:8px;"><span class="pill pill-cyan" id="syncPill" style="padding:3px 9px;">LIVE LINK</span></div>
+    </div>
+    <div class="status-cell" id="cellUp">
+      <div class="k"><span>Uptime</span><span id="pendingWrap" style="display:none;color:#ffc24b;">+<span id="pendingCount">0</span> queued</span></div>
+      <div class="v small-v" id="dashUptime">00:00:00</div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN GRID ================= -->
+  <div class="dash-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-stack">
+
+      <!-- THREAT SCORE -->
+      <section class="card" id="threatCard">
+        <div class="card-head">
+          <span class="t">Threat Score — Correlation Output</span>
+          <span class="pill pill-green" id="tsPill">NORMAL</span>
+        </div>
+
+        <div class="gauge-wrap">
+          <div class="gauge">
+            <svg viewBox="0 0 200 200" fill="none" aria-hidden="true">
+              <circle class="track" cx="100" cy="100" r="86" stroke-width="12"/>
+              <circle id="tsBar" class="bar" cx="100" cy="100" r="86" stroke-width="12"
+                      stroke-linecap="round" stroke-dasharray="540.35" stroke-dashoffset="540.35" stroke="#2ff2a4"/>
+            </svg>
+            <div class="num">
+              <div class="score" id="tsNum">0</div>
+              <div class="lvl" id="tsLvl">NORMAL</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="score-zones" style="margin-top:16px;">
+          <div class="zone ok" data-level="ok">0–30 · Normal</div>
+          <div class="zone warn" data-level="warn">31–70 · Warning</div>
+          <div class="zone crit" data-level="crit">71–100 · Critical</div>
+        </div>
+
+        <div style="font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;margin:18px 0 12px;">Sensor contribution</div>
+        <div class="contribution-list" id="contribList"></div>
+      </section>
+
+      <!-- SENSOR MONITORING -->
+      <section id="monitor">
+        <div class="card-head" style="margin-bottom:14px;">
+          <span class="t">Sensor Monitoring</span>
+          <span class="pill pill-green" style="padding:4px 10px;"><span class="dot pulse"></span>sampling 5&nbsp;Hz</span>
+        </div>
+
+        <div class="sensor-grid">
+          <!-- Motion -->
+          <div class="sensor state-ok" id="cMotion" data-sim="motion" title="Click to simulate motion">
+            <span class="fx"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><circle cx="19" cy="5" r="1.6"/><path d="M16.8 6.4 10.5 11.5 12 16h7.5"/><circle cx="19" cy="19" r="1.6"/><path d="M17 18 12 13.5"/></svg></span>
+            <div class="s-label"><span class="dot"></span>Motion Detection</div>
+            <div class="s-value" id="sMotionV">—</div>
+            <div class="s-sub">PIR · passive infrared</div>
+            <span class="s-state" id="sMotionS"><span class="dot"></span>Normal</span>
+            <div class="spark" id="spMotion"></div>
+          </div>
+
+          <!-- Vibration -->
+          <div class="sensor state-ok" id="cVibration" data-sim="vibration" title="Click to simulate vibration">
+            <span class="fx"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2 M9.4 7c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2 M15.8 7c1.6 0 1.6 2 3.2 2"/><path d="M3 12c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2 M9.4 12c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2 M15.8 12c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2"/><path d="M3 17c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2 M9.4 17c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2 M15.8 17c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2"/></svg></span>
+            <div class="s-label"><span class="dot"></span>Vibration</div>
+            <div class="s-value" id="sVibrationV">0.00</div>
+            <div class="s-sub">accelerometer · thold 0.90 g</div>
+            <span class="s-state" id="sVibrationS"><span class="dot"></span>Normal</span>
+            <div class="spark" id="spVibration"></div>
+          </div>
+
+          <!-- Temperature -->
+          <div class="sensor state-ok" id="cTemperature" data-sim="temperature" title="Click to simulate temperature anomaly">
+            <span class="fx"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a4 4 0 0 0 4-4c0-3-1.5-4-4-4s-4 1-4 4a4 4 0 0 0 4 4z"/><path d="M12 8V4M8 5l2.5 2.5M16 5l-2.5 2.5M12 19v-4"/></svg></span>
+            <div class="s-label"><span class="dot"></span>Temperature</div>
+            <div class="s-value" id="sTemperatureV">32.0</div>
+            <div class="s-sub">ambient · anomaly ≥ 55°C</div>
+            <span class="s-state" id="sTemperatureS"><span class="dot"></span>Normal</span>
+            <div class="spark" id="spTemperature"></div>
+          </div>
+
+          <!-- Camera -->
+          <div class="sensor state-ok" id="cCamera" data-sim="camera" title="Click to simulate camera detection">
+            <span class="fx"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M8.5 5l-.6-2h8.2l-.6 2M8 9h4M9 15.5l3-3 3 3"/></svg></span>
+            <div class="s-label"><span class="dot"></span>Camera</div>
+            <div class="s-value" id="sCameraV">READY</div>
+            <div class="s-sub">ESP32-CAM · AI frame analysis</div>
+            <span class="s-state" id="sCameraS"><span class="dot"></span>Normal</span>
+            <div class="spark" id="spCamera"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-stack">
+
+      <!-- ALERT PANEL -->
+      <section class="card">
+        <div class="card-head">
+          <span class="t">Alert Panel</span>
+          <span class="pill pill-cyan" style="padding:4px 10px;"><span class="dot"></span>newest first</span>
+        </div>
+        <div class="alert-panel" id="alertList">
+          <div class="dim small" style="padding:6px 2px;">No alerts yet.</div>
+        </div>
+        <div class="chart-legend" style="justify-content:flex-end;margin-top:10px;">
+          <span><i style="background:#2ff2a4"></i>Normal</span>
+          <span><i style="background:#ffc24b"></i>Warning</span>
+          <span><i style="background:#ff4d68"></i>Critical</span>
+          <span id="alertCount">0</span>
+        </div>
+      </section>
+
+      <!-- CORRELATED FLOW -->
+      <section class="card">
+        <div class="card-head">
+          <span class="t">Correlation Flow</span>
+          <span class="pill pill-green"><span class="dot pulse"></span>edge engine</span>
+        </div>
+        <div class="engine-flow" id="engineFlow"></div>
+        <p class="dim small" style="margin-top:12px;">A single sensor alone is treated as noise. TrinetraAI escalates only when signals corroborate — exactly how an experienced guard reasons.</p>
+      </section>
+
+      <!-- THREAT TIMELINE -->
+      <section class="card chart-card">
+        <div class="card-head">
+          <span class="t">Threat Timeline</span>
+          <span class="dim small">last <span id="chartN">raw</span> samples</span>
+        </div>
+        <canvas id="threatChart" height="168" style="width:100%;height:168px;"></canvas>
+        <div class="chart-legend">
+          <span><i style="background:#2ff2a4"></i>score</span>
+          <span><i style="background:#ffc24b"></i>warning band</span>
+          <span><i style="background:#ff4d68"></i>critical band</span>
+        </div>
+      </section>
+
+      <!-- EVENT LOG -->
+      <section class="card">
+        <div class="card-head">
+          <span class="t">Event Log &nbsp;<span class="blink" style="color:var(--green);">▉</span></span>
+          <span class="dim small">firmware trace · TN-001</span>
+        </div>
+        <div class="evlog" id="evLog"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="seam"></div>
+
+  <!-- ================= OFFLINE MODE ================= -->
+  <section class="dash-grid" style="margin-bottom:22px;">
+    <div class="card cut">
+      <div class="card-head">
+        <span class="t">Offline Mode</span>
+        <span class="pill pill-amber"><span class="dot"></span>OFFLINE MODE ACTIVE</span>
+      </div>
+      <p class="small dim" style="max-width:560px;">
+        Sensors never stop. When the link drops, detection, alerting and logging keep running
+        on the node. Events queue locally, then synchronize automatically the moment
+        connectivity returns.
+      </p>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:20px;">
+        <label class="toggle">
+          <input type="checkbox" id="offlineToggle">
+          <span class="track"></span>
+          Offline Mode
+        </label>
+        <span class="dim small mono" id="pendingWrap2">stored locally: <b id="pendingCount2" style="color:var(--amber);">0</b> event(s)</span>
+      </div>
+    </div>
+
+    <div class="card cut">
+      <div class="card-head">
+        <span class="t">Cloud Sync</span>
+        <span class="pill pill-cyan"><span class="dot"></span>best-effort</span>
+      </div>
+      <div class="sync-visual online" id="syncVisual" style="margin-top:0;">
+        <div class="sync-track">
+          <span class="pkt-label">LOCAL BUFFER → CLOUD</span>
+          <span class="packet" style="--d:0s"></span>
+          <span class="packet" style="--d:1.1s"></span>
+          <span class="packet" style="--d:2.2s"></span>
+          <span class="cloud"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.5 18a4.5 4.5 0 0 0 .5-9 7 7 0 0 0-13.4 1.5A4 4 0 0 0 6 18h11.5z"/><path d="M12 21v-6"/><path d="M9.5 17.5 12 20l2.5-2.5"/></svg></span>
+          <div class="offline-label" id="syncLabel">OFFLINE MODE ACTIVE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SIMULATION CONTROLS ================= -->
+  <section class="card sim-panel" style="margin-bottom:34px;">
+    <div class="card-head">
+      <span class="t">Demo / Simulation Controls</span>
+      <span class="demo-ribbon">prototype input feed</span>
+    </div>
+    <p class="dim small" style="margin-bottom:18px;">
+      Fire a simulated event to watch sensors, threat score, alerts, timeline and connectivity react — or
+      trigger multiple threats together to see the correlation engine issue a CRITICAL. Sensors auto-clear
+      after a few seconds.
+    </p>
+    <div class="sim-btns">
+      <button class="sim-btn" id="simMotion">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/></svg>
+        Simulate Motion
+      </button>
+      <button class="sim-btn" id="simVibration">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2"/><path d="M9.4 7c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2"/><path d="M15.8 7c1.6 0 1.6 2 3.2 2s1.6-2 3.2-2"/></svg>
+        Simulate Vibration
+      </button>
+      <button class="sim-btn" id="simTemperature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a4 4 0 0 0 4-4c0-3-1.5-4-4-4s-4 1-4 4a4 4 0 0 0 4 4z"/><path d="M12 8V4"/></svg>
+        Sim. Temp Anomaly
+      </button>
+      <button class="sim-btn" id="simCamera">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+        Sim. Camera Detection
+      </button>
+      <button class="sim-btn" id="simMultiple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V4M20 6h-8M12 6l4-4M12 6l-4-4"/><path d="M4 12h16M9 4h10"/></svg>
+        Simulate Multiple Threats
+      </button>
+      <button class="sim-btn" id="simReset" style="justify-content:center;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset System
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer style="padding:26px 0 14px;">
+    <div class="foot-bottom" style="margin-top:0;">
+      <span>&copy; 2026 TrinetraAI &middot; TN-001 · firmware 1.4.2</span>
+      <span>TrinetraAI — protecting critical infrastructure through affordable intelligent monitoring.</span>
+    </div>
+    <div class="disclaimer" style="margin-top:14px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex:none;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      TrinetraAI is a student prototype/concept demonstration and is not a certified security system.
+    </div>
+  </footer>
+</main>
+
+<!-- floating simulation trigger -->
+<button class="sim-fab" id="simFab" title="Start / stop the automated demo simulation">
+  <span class="ic">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  </span>
+  <span class="lbl">Simulation Mode</span>
+</button>
+
+<!-- scripts -->
+<script src="js/engine.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

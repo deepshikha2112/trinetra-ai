@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrinetraAI — Affordable Offline-Capable Infrastructure Security</title>
+<meta name="description" content="An affordable security node that combines multiple sensor signals to detect and assess threats to critical infrastructure in real time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/trinetraai.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z' fill='%232ff2a4'/%3E%3Ccircle cx='12' cy='10' r='2.6' fill='%23041512'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="logo">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z" fill="rgba(4,21,18,0.9)"/>
+          <circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+      </span>
+      <span class="logo-text">
+        TrinetraAI
+        <span class="sub">Infrastructure Sentinel</span>
+      </span>
+    </a>
+
+    <div class="nav-links">
+<a href="#why">Why TrinetraAI</a>
+      <a href="#offline">Offline Mode</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#tech">Tech</a>
+    </div>
+
+    <div class="nav-status">
+      <span class="pill pill-green"><span class="dot pulse"></span>Sensors Online</span>
+      <a class="btn btn-primary" href="dashboard.html" style="padding:10px 16px;">Live Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Defence-Grade Concept · Open Architecture · Field Node</p>
+        <h1>TrinetraAI</h1>
+        <p class="tagline">&ldquo;Affordable. Intelligent. Offline-Capable Infrastructure Security.&rdquo;</p>
+        <p class="desc">
+          An affordable security node that combines multiple sensor signals to
+          detect and assess threats to critical infrastructure in real time. No
+          expensive cameras, no cloud dependency — just smart edge correlation.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="dashboard.html">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v6"/></svg>
+            View Live Dashboard
+          </a>
+          <a class="btn btn-ghost" href="#why">How It Works</a>
+        </div>
+
+        <ul class="hero-ticks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Multi-sensor threat correlation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Works fully offline</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>ESP32 + ESP32-CAM</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>&#8377;2,000&ndash;3,500 prototype</li>
+        </ul>
+      </div>
+
+      <!-- HUD visual: node protecting a facility -->
+      <div class="hud reveal">
+        <div class="radar">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+          <span class="sweep-line"></span>
+
+          <span class="blip b-mot"><span class="dot"></span>PIR</span>
+          <span class="blip b-vib cyan"><span class="dot"></span>VIB</span>
+          <span class="blip b-temp amber"><span class="dot"></span>TMP</span>
+          <span class="blip b-cam violet"><span class="dot"></span>CAM</span>
+
+          <div class="node-core">
+            <span class="chip" title="ESP32-S3"></span>
+          </div>
+        </div>
+
+        <div class="hud-lines">
+          <svg viewBox="0 0 520 520" fill="none" aria-hidden="true">
+            <path d="M150 140 L260 260"/><path d="M420 100 L260 260"/>
+            <path d="M120 400 L260 260"/><path d="M400 470 L260 260"/>
+          </svg>
+        </div>
+
+        <div class="facility">
+          <div class="pylon" aria-hidden="true">
+            <svg viewBox="0 0 48 74" fill="none">
+              <path d="M6 72 L24 4 L42 72" stroke="#2ff2a4" stroke-width="2"/>
+              <path d="M12 56 H36 M16 42 H32 M19 28 H29" stroke="#2ff2a4" stroke-width="1.6"/>
+              <path d="M17 56 L7 66 M31 56 L41 66 M19 46 L12 56 M29 46 L36 56" stroke="#2ff2a4" stroke-width="1.2" opacity="0.8"/>
+              <path d="M6 72 H42" stroke="#2ff2a4" stroke-width="3"/>
+              <circle cx="24" cy="8" r="2.6" fill="#2ff2a4"/>
+            </svg>
+          </div>
+          <div class="f-info">
+            <div class="title">Protected: energy substation</div>
+            <div class="subs">POWER GRID &middot; GRID-04 &middot; SECTOR 7 &middot; zone guarded by node TN-001</div>
+          </div>
+          <div class="f-tag">RADAR ACTIVE<span class="blink">_</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= FACILITY STRIP ================= -->
+<section class="section" style="padding: 20px 0 70px;">
+  <div class="wrap">
+    <div class="logo-row">
+      <span>Power Stations</span><span>&middot;</span>
+      <span>Telecom Towers</span><span>&middot;</span>
+      <span>Railway Equipment</span><span>&middot;</span>
+      <span>Substations</span><span>&middot;</span>
+      <span>Remote Facilities</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY TRINETRA AI IS DIFFERENT ================= -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow cyan">The Core Idea</span>
+      <h2>Why TrinetraAI is Different</h2>
+      <p>
+        Typical security trips an alarm when a <em>single</em> sensor fires — a stray
+        wild animal or a passing truck means 60%+ false alarms. TrinetraAI refuses to
+        jump to conclusions. It waits, correlates, and only escalates when multiple
+        independent signals <strong>agree</strong>.
+      </p>
+    </div>
+
+    <div class="feat-grid" style="margin-bottom: 54px;">
+      <div class="card feat-card cut reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Correlation, not hunch</h3>
+        <p>Motion alone never triggers a critical alarm. Only combined signals (e.g. motion + vibration + camera) produce a CRITICAL verdict.</p>
+      </div>
+      <div class="feat-card cut reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l1.5-6 3 12 1.5-6h4"/></svg></div>
+        <h3>A score, not a switch</h3>
+        <p>Every event moves a 0–100 threat score. NORMAL → WARNING → CRITICAL gives operators time to respond before sounding the alarm.</p>
+      </div>
+      <div class="feat-card cut reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h3l2-3 3 10 2-6 2 3h3"/><path d="M3 16h3l2-3 3 10 5-14"/></svg></div>
+        <h3>Built for the field</h3>
+        <p>No internet, no problem. Detection, alerting and logging run on-device, edge-first — sync is best-effort, never required.</p>
+      </div>
+      <div class="feat-card cut reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z"/></svg></div>
+        <h3>Owned by critical infra</h3>
+        <p>Protects what keeps the lights on: power stations, substations, telecom towers, railway sites and unattended remote equipment.</p>
+      </div>
+    </div>
+
+    <!-- live pipeline demo -->
+    <div class="corr-wrap reveal">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px;">
+        <span class="track dim" style="font-size:0.72rem;">Multi-Sensor Correlation Engine &mdash; <span style="color:var(--green)">live demo</span></span>
+        <span style="display:inline-flex;gap:8px;align-items:center;" class="mono small dim">
+          Threat: <span id="ldScore" class="mono" style="color:var(--green);font-weight:700;">0</span> / 100
+          <span id="ldLevel" class="pill pill-green" style="padding:4px 10px;">NORMAL</span>
+        </span>
+      </div>
+
+      <div class="pipeline">
+        <span class="s-chip ld" data-k="motion"><span class="mini-dot"></span>Motion</span>
+        <span class="pipe-conn"><span>+</span><span class="cn">signal</span></span>
+        <span class="s-chip ld" data-k="vibration"><span class="mini-dot"></span>Vibration</span>
+        <span class="pipe-conn"><span>+</span><span class="cn">signal</span></span>
+        <span class="s-chip ld" data-k="camera"><span class="mini-dot"></span>Camera</span>
+        <span class="pipe-conn"><span>+</span><span class="cn">signal</span></span>
+        <span class="s-chip ld" data-k="temperature"><span class="mini-dot"></span>Temperature</span>
+        <span class="pipe-conn"><span>&rarr;</span><span class="cn">fuse</span></span>
+        <span class="pipe-node cyan hot"><span class="t">Threat Engine</span><span class="v" style="font-size:1rem;">edge-local</span></span>
+        <span class="pipe-conn"><span>&rarr;</span><span class="cn">score</span></span>
+        <span class="pipe-node violet ld-node-score"><span class="t">Threat Score</span><span class="v" id="ldScoreNode">0</span></span>
+        <span class="pipe-conn"><span>&rarr;</span><span class="cn">verdict</span></span>
+        <span class="pipe-node green ld-node-verdict"><span class="t">Alert</span><span class="v" style="font-size:1rem" id="ldVerdict">NORMAL</span></span>
+      </div>
+
+      <p class="dim small" style="margin-top:20px;text-align:center;max-width:640px;margin-inline:auto;" id="ldCaption">
+        Watch the demo: a single sensor is ignored. When multiple signals fire together, the Threat Engine escalates and issues a CRITICAL alert.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORKS EVEN WITHOUT INTERNET ================= -->
+<section class="section" id="offline" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow amber">Offline-First</span>
+      <h2>Works Even Without Internet</h2>
+      <p>Remote telecom towers and substations often have no reliable link. TrinetraAI was designed for exactly that world.</p>
+    </div>
+
+    <div class="offline-grid">
+      <div class="reveal">
+        <div class="phone-frame">
+          <div class="pf-top"><span>TRINETRA AI · SIM 0% SIGNAL</span><span id="pfBatt">96%</span></div>
+          <div class="sms-list" id="smsList">
+            <div class="sms alert">
+              <span class="tm">00:00</span>
+              <div class="bubble"><span class="tag">CRITICAL</span>Motion + vibration + camera activity near Node TN-001.</div>
+            </div>
+            <div class="sms">
+              <span class="tm">00:00</span>
+              <div class="bubble">Stored locally. Will sync when link returns.</div>
+            </div>
+            <div class="sms">
+              <span class="tm">00:00</span>
+              <div class="bubble">Guard tasking engine: local alert dispatched.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="dim" style="max-width:520px;">
+          While the world around it loses signal, the node keeps working. Detection,
+          decision, alert generation and logging all happen on the <strong>edge</strong>.
+          The cloud is optional — it only mirrors what the node already knows.
+        </p>
+
+        <div class="off-grid-pills">
+          <div class="off-pill">
+            <span class="oc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6v12"/><circle cx="9" cy="6" r="1.5"/><path d="M15 6v12"/><circle cx="15" cy="6" r="1.5"/></svg></span>
+            <div><h4>Continuous monitoring</h4><p>Sensors keep sampling and scoring with no link at all.</p></div>
+          </div>
+          <div class="off-pill hot">
+            <span class="oc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v10"/><rect x="7" y="13" width="10" height="8" rx="1"/></svg></span>
+            <div><h4>Events stored locally</h4><p>Alerts queue on the device until connectivity returns.</p></div>
+          </div>
+          <div class="off-pill hot">
+            <span class="oc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9a4 4 0 0 1 4 4c0 3-1 3.5-1 5h-6c0-1.5-1-2-1-5a4 4 0 0 1 4-4z"/><path d="M9 2.5 10 5"/> </svg></span>
+            <div><h4>Alerts generated locally</h4><p>Buzzer, LED and local dashboard — no round-trip needed.</p></div>
+          </div>
+          <div class="off-pill">
+            <span class="oc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a8 8 0 0 1 14-5"/><path d="M21 8v4h-4"/><path d="M21 12a8 8 0 0 1-14 5"/><path d="M3 16v-4h4"/></svg></span>
+            <div><h4>Auto-sync on reconnect</h4><p>Buffered events flush seamlessly the moment a link appears.</p></div>
+          </div>
+        </div>
+
+        <div class="sync-visual" id="syncVisual">
+          <div class="sync-track">
+            <span class="pkt-label">EVENT BUFFER → CLOUD</span>
+            <span class="packet" style="--d:0s"></span>
+            <span class="packet" style="--d:1.1s"></span>
+            <span class="packet" style="--d:2.2s"></span>
+            <span class="packet" style="--d:3.3s"></span>
+            <span class="cloud"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.5 18a4.5 4.5 0 0 0 .5-9 7 7 0 0 0-13.4 1.5A4 4 0 0 0 6 18h11.5z"/><path d="M12 21v-6"/><path d="M9.5 17.5 12 20l2.5-2.5"/></svg></span>
+            <div class="offline-label" id="syncLabel">OFFLINE MODE ACTIVE</div>
+          </div>
+          <p class="dim small" style="margin-top:10px;" id="syncHint">
+            Toggle the dashboard&rsquo;s offline mode to see events buffer here.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="section" id="architecture" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow cyan">Under the hood</span>
+      <h2>Architecture</h2>
+      <p>A lean, sequential data path from physical sensing to a human-readable verdict.</p>
+    </div>
+
+    <div class="arch">
+      <div class="arch-step reveal">
+        <span class="n">1</span>
+        <div><div class="at">Sensors</div><div class="ad">PIR motion · vibration · temperature · ESP32-CAM vision</div></div>
+        <span class="side">raw signals</span>
+      </div>
+      <div class="arch-arrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <div class="arch-step reveal">
+        <span class="n">2</span>
+        <div><div class="at">ESP32</div><div class="ad">Edge host — samples, debounces, timestamps every reading</div></div>
+        <span class="side">on-device</span>
+      </div>
+      <div class="arch-arrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <div class="arch-step engine reveal">
+        <span class="n">3</span>
+        <div><div class="at">Threat Correlation Engine</div><div class="ad">Fuses multi-sensor evidence — never judges from one signal alone</div></div>
+        <span class="side">fusion logic</span>
+      </div>
+      <div class="arch-arrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <div class="arch-step reveal">
+        <span class="n">4</span>
+        <div><div class="at">Threat Score</div><div class="ad">Continuous 0–100 score from correlated evidence weightings</div></div>
+        <span class="side">0–100</span>
+      </div>
+      <div class="arch-arrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <div class="arch-step reveal">
+        <span class="n">5</span>
+        <div><div class="at">Normal / Warning / Critical</div><div class="ad">Bucket classifier that decides how the system should react</div></div>
+        <span class="side">0-30 / 31-70 / 71-100</span>
+      </div>
+      <div class="arch-arrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <div class="arch-step reveal">
+        <span class="n">6</span>
+        <div><div class="at">Local Alert + Dashboard</div><div class="ad">Buzzer, LED and dashboard event feed — zero latency</div></div>
+        <span class="side">local-first</span>
+      </div>
+      <div class="arch-arrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+      <div class="arch-step reveal">
+        <span class="n">7</span>
+        <div><div class="at">Cloud Sync When Available</div><div class="ad">Optional best-effort upload of buffered events and telemetry</div></div>
+        <span class="side">best-effort</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HARDWARE ================= -->
+<section class="section" id="hardware" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Physical prototype</span>
+      <h2>Bill of Materials</h2>
+      <p>Everything the prototype needs rides on one ESP32 and costs less than a night shift of an on-site guard. Roughly.</p>
+    </div>
+
+    <div class="hw-grid">
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="13"/><path d="M8 8V4h8v4M12 8v13"/></svg></div>
+        <h4>ESP32</h4><p>Main MCU · 2.4GHz · BT · dual-core</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="13" r="3"/><path d="M9 4h6"/></svg></div>
+        <h4>ESP32-CAM</h4><p>Vision module · camera sensing</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v6M4 12h16"/><circle cx="12" cy="15" r="4"/></svg></div>
+        <h4>PIR Motion</h4><p>Passive infrared proximity</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M4 12c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M4 18c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2"/></svg></div>
+        <h4>Vibration Sensor</h4><p>Tamper / impact detection</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a4 4 0 0 0 4-4c0-3-1.5-4-4-4s-4 1-4 4a4 4 0 0 0 4 4z"/><path d="M12 8V4M8 5l2 2M16 5l-2 2M12 19v-4"/></svg></div>
+        <h4>Temperature Sensor</h4><p>Equipment heat / fire risk</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9h8M8 12h8M8 15h4M5 20h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg></div>
+        <h4>Buzzer / LED</h4><p>Local annunciation + status</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="9" width="20" height="8" rx="2"/><path d="M17 13h.01M19 13h.01M5 13h.01M12 13h.01M2 17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2"/></svg></div>
+        <h4>Battery / Power</h4><p>Solar-ready, low-power sleep</p>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z"/></svg></div>
+        <h4>Enclosure + mount</h4><p>Weatherproof, pole mount</p>
+      </div>
+    </div>
+
+    <div class="cost-panel reveal">
+      <div>
+        <div class="track dim" style="font-size:0.72rem;margin-bottom:4px;">Estimated prototype cost</div>
+        <div class="big">&#8377;2,000&ndash;&#8377;3,500</div>
+      </div>
+      <div class="note" style="max-width:420px;">
+        Per unit, in bulk pricing. Fraction of a typical CCT system — and it runs where CCTV cannot: off-grid, off-line, off-the-shelf.
+      </div>
+      <a class="btn btn-amber" href="dashboard.html">See it in action</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECHNOLOGY ================= -->
+<section class="section" id="tech" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow cyan">Stack</span>
+      <h2>Technology</h2>
+      <p>Small, cheap, proven building blocks — no black boxes required.</p>
+    </div>
+
+    <div class="tech-cloud">
+      <span class="tech-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="13"/><path d="M8 8V4h8v4M12 8v13"/></svg>ESP32</span>
+      <span class="tech-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="13" r="3"/><path d="M9 4h6"/></svg>ESP32-CAM</span>
+      <span class="tech-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v6M4 12h16"/><circle cx="12" cy="15" r="4"/></svg>IoT Sensors</span>
+      <span class="tech-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13"/><path d="M8 7V5h8v2M9 15h6"/></svg>Edge / Offline Processing</span>
+      <span class="tech-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V4M4 12h16M20 4v16" /></svg>Multi-Sensor Correlation</span>
+      <span class="tech-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v6"/></svg>Web Dashboard</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top">
+          <span class="logo">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z" fill="rgba(14,21,16,0.9)"/>
+              <circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span class="logo-text">TrinetraAI<span class="sub">Infrastructure Sentinel</span></span>
+        </a>
+        <p class="desc">&ldquo;Protecting critical infrastructure through affordable intelligent monitoring.&rdquo;</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="dashboard.html">Live Dashboard</a></li>
+          <li><a href="#why">Why TrinetraAI</a></li>
+          <li><a href="#offline">Offline Mode</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Build</h5>
+        <ul>
+          <li><a href="#hardware">Hardware BOM</a></li>
+          <li><a href="#tech">Technology</a></li>
+          <li><a href="dashboard.html">Simulation controls</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex:none;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      TrinetraAI is a student prototype/concept demonstration and is not a certified security system.
+    </div>
+
+    <div class="foot-bottom">
+      <span>&copy; 2026 TrinetraAI &middot; TN-001&middot;1A · rev C</span>
+      <span>edge &middot; local-first &middot; offline-capable</span>
+    </div>
+  </div>
+</footer>
+
+<!-- scripts -->
+<script src="js/engine.js"></script>
+<script src="js/landing.js"></script>
+</body>
+</html>
